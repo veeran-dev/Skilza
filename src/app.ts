@@ -5,10 +5,10 @@ import express from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan from 'morgan';
-import { connect, set } from 'mongoose';
+import { connect, disconnect, set } from 'mongoose';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
+import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS, DB_URL } from '@config';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
@@ -44,14 +44,18 @@ class App {
     return this.app;
   }
 
+  public disconnect(){
+    disconnect()
+  }
+
   private connectToDatabase() {
     if (this.env !== 'production') {
       set('debug', true);
     }
-    console.log(`---000000----`)
-    console.log(dbConnection.url)
-    connect(dbConnection.url);
+    console.log('dbConnection')
+    connect(DB_URL);
   }
+
 
   private initializeMiddlewares() {
     this.app.use(morgan(LOG_FORMAT, { stream }));
@@ -68,6 +72,8 @@ class App {
     routes.forEach(route => {
       this.app.use('/', route.router);
     });
+
+    // this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   }
 
   private initializeSwagger() {

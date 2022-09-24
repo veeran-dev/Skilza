@@ -9,7 +9,7 @@ class SchoolService {
   public schools = schoolModel;
 
   public async findSchoolById(schoolId: string): Promise<School> {
-    const findSchool: any = this.schools.find({_id: new ObjectId(schoolId)});
+    const findSchool: any = this.schools.find({uid: schoolId});
     if (!findSchool) throw new HttpException(409, "School doesn't exist");
 
     return findSchool;

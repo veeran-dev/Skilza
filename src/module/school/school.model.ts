@@ -6,6 +6,10 @@ const schoolSchema: Schema = new Schema({
     type: String,
     required: true,
   },
+  uid: {
+    type: String,
+    required: true,
+  },
   about: {
     type: String,
     required: true,

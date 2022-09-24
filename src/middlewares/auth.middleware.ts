@@ -30,15 +30,18 @@
 import admin from "@/config/firebase-config";
 
 const authMiddleware = (req, res, next) => {
+  console.log("auth middleware");
   const token = req.headers.authorization.split(' ')[1];
+  console.log(token);
   try{
     const decodeToken = admin.auth().verifyIdToken(token);
     if(decodeToken){
+      console.log("decode");
       return next();
     }
-    return res.json({message: 'Error 404 Unauthorized'})
+    return res.json({message: 'Error 404 Unauthorized'}, 401)
   }catch(e){
-    return res.json({error: 'Internal Error'})
+    return res.json({error: 'Internal Error'}, 500)
   }
 };
 

@@ -15,8 +15,8 @@ class SchoolsRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/:id`, authMiddleware, this.schoolsController.getSchoolById);
-    this.router.post(`${this.path}`, authMiddleware, validationMiddleware(CreateSchoolDto, 'body'), this.schoolsController.createSchool);
+    this.router.get(`${this.path}/:uid`, authMiddleware, this.schoolsController.getSchoolById);
+    this.router.post(`${this.path}`,  validationMiddleware(CreateSchoolDto, 'body', true), this.schoolsController.createSchool);
     this.router.put(`${this.path}/:id`, authMiddleware, validationMiddleware(CreateSchoolDto, 'body', true), this.schoolsController.updateSchool);
     
   }

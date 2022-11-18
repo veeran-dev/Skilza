@@ -13,12 +13,30 @@ export class CreateSchoolDto {
   @IsString()
   public about: string;
 
-  @IsOptional()
-  public gallery: [string];
+  @IsString()
+  public type: string;
+
+  @IsString()
+  public category: string;
+
+  @IsNumber()
+  public lang: number;
+
+  @IsNumber()
+  public long: number;
+
+  @IsString()
+  public address: string;
+
+  @IsString()
+  public city: string;
+
+  @IsString()
+  public pincode: string;
+
+  @IsString()
+  public contact: string;
 
   @IsNotEmpty()
-  public logo: string;
-
-  @IsNotEmpty()
-  public coverImage: string;
+  public addressProof: string;
 }

@@ -1,12 +1,16 @@
 import { model, Schema, Document } from 'mongoose';
-import { School } from '@/module/school/school.interface';
+import { Profile } from '@/module/profile/profile.interface';
 
-const schoolSchema: Schema = new Schema({
-  schoolName: {
+const schema: Schema = new Schema({
+  uid: {
     type: String,
     required: true,
   },
-  uid: {
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
     type: String,
     required: true,
   },
@@ -14,44 +18,36 @@ const schoolSchema: Schema = new Schema({
     type: String,
     required: true,
   },
-  type: {
+  tag:{
     type: String,
     required: true,
   },
-  category: {
-    type: String,
-    required: true,
-  },
-  lang:{
-    type: Number,
-    required: true,
-  },
-  long:{
-    type: Number,
-    require: true,
-  },
-  address:{
+  profileImage:{
     type: String,
     require: true,
   },
-  city:{
+  facebook:{
     type: String,
     require: true,
   },
-  pincode:{
+  instagram:{
     type: String,
     require: true,
   },
-  contact:{
+  linkedin:{
     type: String,
     require: true,
   },
-  addressProof:{
+  youtube:{
     type: String,
+    require: true,
+  },
+  galleryImage:{
+    type: Array,
     require: true,
   }
 });
 
-const schoolModel = model('School', schoolSchema);
+const profileModel = model('Profile', schema);
 
-export default schoolModel;
+export default profileModel;

@@ -1,5 +1,5 @@
 export interface School {
-  id: number;
+  schoolName: string;
   email: string;
   password: string;
 }

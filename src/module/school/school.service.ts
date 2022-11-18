@@ -9,15 +9,14 @@ class SchoolService {
   public schools = schoolModel;
 
   public async findSchoolById(schoolId: string): Promise<School> {
-    const findSchool: any = this.schools.find({uid: schoolId});
-    if (!findSchool) throw new HttpException(409, "School doesn't exist");
-
+    const findSchool: any = this.schools.find({uid:schoolId});
     return findSchool;
   }
 
   public async createSchool(schoolData: CreateSchoolDto): Promise<School> {
     if (isEmpty(schoolData)) throw new HttpException(400, "schoolData is empty");
-    const school:any = this.schools.create(schoolData)
+    const school:any = await this.schools.create(schoolData)
+    
     return school;
   }
 

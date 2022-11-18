@@ -18,8 +18,7 @@ class AuthService {
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
     const findUser: any = await this.users.findOne({email:userData.email});
-    console.log('findUser')
-    console.log(findUser)
+
     if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
 
     const createUserData: User = await this.users.create({
@@ -37,13 +36,8 @@ class AuthService {
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
     const findUser: any = await this.users.find({email:userData.email});
-    console.log("findUser")
-    console.log(findUser)
-    console.log(findUser[0])
     if (!findUser) throw new HttpException(409, `This email ${userData.email} was not found`);
 
-    console.log('userData.password ', userData.password)
-    console.log('findUser.password ', findUser[0].password)
     var passwordIsValid = bcrypt.compareSync(
       userData.password,
       findUser[0].password

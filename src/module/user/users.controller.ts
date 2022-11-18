@@ -18,8 +18,6 @@ class UsersController {
 
   public getUserById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      console.log("req.params")
-      console.log(req.params)
       const userId = req.params.id;
       const findOneUserData: User = await this.userService.findUserById(userId);
 

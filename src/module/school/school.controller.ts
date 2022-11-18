@@ -9,8 +9,6 @@ class SchoolsController {
 
   public getSchoolById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      console.log("req.params")
-      console.log(req.params)
       const schoolId = req.params.uid;
       const findOneSchoolData: School = await this.schoolService.findSchoolById(schoolId);
 
@@ -23,8 +21,6 @@ class SchoolsController {
 
   public createSchool = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      console.log('req.body');
-      console.log(req.body);
       const schoolData: CreateSchoolDto = req.body;
       const createSchoolData: School = await this.schoolService.createSchool(schoolData);
 

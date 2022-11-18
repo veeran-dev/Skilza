@@ -1,48 +1,30 @@
-// import userModel from "@/module/user/users.model";
-// const jwt = require("jsonwebtoken");
-
-// const authMiddleware = (req, res, next) => {
-//   if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
-//     jwt.verify(req.headers.authorization.split(' ')[1], process.env.API_SECRET, function (err, decode) {
-//       if (err) req.user = undefined;
-//       userModel.findOne({
-//           _id: decode.id
-//         })
-//         .exec((err, user) => {
-//           if (err) {
-//             res.status(500)
-//               .send({
-//                 message: err
-//               });
-//           } else {
-//             req.user = user;
-//             next();
-//           }
-//         })
-//     });
-//   } else {
-//     req.user = undefined;
-//     next();
-//   }
-// };
-// export default authMiddleware;
-
 import admin from "@/config/firebase-config";
 
-const authMiddleware = (req, res, next) => {
-  console.log("auth middleware");
+const authMiddleware = async (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
-  console.log(token);
   try{
-    const decodeToken = admin.auth().verifyIdToken(token);
+    
+    const decodeToken = await admin.auth().verifyIdToken(token);
+    // console.log(decodeToken)
     if(decodeToken){
-      console.log("decode");
+      // console.log("decode");
       return next();
     }
-    return res.json({message: 'Error 404 Unauthorized'}, 401)
+    return res.status(401).json({
+      message: "Error 404 Unauthorized"
+    });
   }catch(e){
-    return res.json({error: 'Internal Error'}, 500)
+    console.log(e.errorInfo.code)
+    if(e.errorInfo.code === 'auth/id-token-expired'){
+      return res.status(401).json({
+        message: "Error 401 Token Expired"
+      });
+    }
+    return res.status(500).json({
+      error: "Internal Error"
+    });
   }
 };
+
 
 export default authMiddleware;

@@ -75,7 +75,7 @@ class ProfileController {
   };
 
 
-public tutorProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+public addTutorProfile = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     console.log('req.body');
     console.log(req.body);

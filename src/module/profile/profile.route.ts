@@ -19,7 +19,7 @@ class SchoolsRoute implements Routes {
     this.router.get(`${this.path}/:uid`, authMiddleware, this.profileController.getProfileById);
     this.router.post(`${this.path}/`, authMiddleware, this.profileController.createProfile);
     this.router.put(`${this.path}/:uid`, authMiddleware, this.profileController.updateProfile);
-    this.router.post(`${this.path}/:uid`, authMiddleware, this.profileController.tutorProfile);
+    this.router.post(`${this.path}/:uid`, authMiddleware, this.profileController.addTutorProfile);
     
   }
 }
